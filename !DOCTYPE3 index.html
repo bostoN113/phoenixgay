@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Online Code Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .editor-container {
+            display: flex;
+            height: 90vh;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .line-numbers {
+            background-color: #f0f0f0;
+            color: #555;
+            text-align: right;
+            padding: 10px;
+            font-family: monospace;
+            user-select: none;
+        }
+        .line-numbers div {
+            line-height: 1.5;
+        }
+        textarea {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-family: monospace;
+            line-height: 1.5;
+            padding: 10px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Online Code Editor</h1>
+    <div class="editor-container">
+        <div class="line-numbers" id="lineNumbers">
+            <div>1</div>
+        </div>
+        <textarea id="codeEditor" oninput="updateLineNumbers()" onscroll="syncScroll()" spellcheck="false"></textarea>
+    </div>
+
+    <script>
+        function updateLineNumbers() {
+            const textarea = document.getElementById("codeEditor");
+            const lineNumbers = document.getElementById("lineNumbers");
+            const lines = textarea.value.split("\n").length;
+            lineNumbers.innerHTML = '';
+            for (let i = 1; i <= lines; i++) {
+                const lineNumber = document.createElement("div");
+                lineNumber.textContent = i;
+                lineNumbers.appendChild(lineNumber);
+            }
+        }
+
+        function syncScroll() {
+            const textarea = document.getElementById("codeEditor");
+            const lineNumbers = document.getElementById("lineNumbers");
+            lineNumbers.scrollTop = textarea.scrollTop;
+        }
+    </script>
+</body>
+</html>
